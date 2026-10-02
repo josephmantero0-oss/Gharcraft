@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GharCraft by BuildSync | PropTech & Renovation Marketplace</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{brand:{cream:'#F9F8F3',dark:'#111111',accent:'#10B981',greenlight:'#D1FAE5',emerald:'#059669',border:'#E5E7EB'}}}}}</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#F9F8F3;color:#111111}
+.cc{background:#ffffff;border:1px solid #E5E7EB;box-shadow:0 4px 20px -2px rgba(0,0,0,.04)}
+.dc{background:#111111;color:#F9F8F3}
+.bo{background:#10B981;color:#fff}.bo:hover{background:#059669}
+.btn-build{background:#10B981;color:#fff;border-radius:9999px;padding:8px 20px;font-weight:700;font-size:13px;transition:all 0.2s}
+.btn-build:hover{background:#059669;box-shadow:0 4px 14px rgba(16,185,129,0.35)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:4px}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#ffffff;border:1px solid #E5E7EB;box-shadow:0 10px 25px rgba(0,0,0,0.08);border-radius:16px;padding:8px;z-index:50;min-width:180px}
+.dropdown-group:hover .dropdown-menu{display:block}
+</style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+<!-- HEADER NAVBAR -->
+<header class="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+<!-- Left: Location & Branding -->
+<div class="flex items-center gap-3">
+<button onclick="toggleDrawer()" class="lg:hidden p-2 rounded-lg bg-stone-100 text-stone-700"><i class="fa-solid fa-bars"></i></button>
+<span class="text-2xl font-black text-stone-900 cursor-pointer" onclick="nav('landing')">Ghar<span class="text-emerald-600">Craft</span></span>
+
+<!-- Location Dropdown -->
+<div class="relative dropdown-group hidden sm:block">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-xs font-bold text-emerald-600 hover:bg-orange-100">
+<i class="fa-solid fa-location-dot"></i><span id="sel-loc-name">Thane</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
+</button>
+<div class="dropdown-menu">
+<button onclick="changeLoc('Thane')" class="w-full text-left px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Thane</button>
+<button onclick="changeLoc('Palghar')" class="w-full text-left px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Palghar</button>
+<button onclick="changeLoc('Mumbai')" class="w-full text-left px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Mumbai</button>
+<button onclick="changeLoc('Navi Mumbai')" class="w-full text-left px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Navi Mumbai</button>
+</div>
+</div>
+</div>
+
+<!-- Middle: Navigation Links -->
+<nav class="hidden lg:flex items-center gap-6 text-xs font-bold text-stone-700">
+<button onclick="nav('landing')" data-nav="landing" class="nav-btn hover:text-emerald-600 transition-colors text-emerald-600">Home</button>
+<!-- Services Dropdown -->
+<div class="relative dropdown-group">
+<button class="flex items-center gap-1 hover:text-emerald-600 py-2">Services <i class="fa-solid fa-chevron-down text-[9px]"></i></button>
+<div class="dropdown-menu">
+<button onclick="nav('packages')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Full Home Interiors</button>
+<button onclick="nav('packages')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Carpentry & Furniture</button>
+<button onclick="nav('packages')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Masonry & Civil Work</button>
+<button onclick="nav('packages')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Painting & Polish</button>
+</div>
+</div>
+<button onclick="nav('projects')" data-nav="projects" class="nav-btn hover:text-emerald-600 transition-colors">Projects</button>
+<button onclick="nav('packages')" data-nav="packages" class="nav-btn hover:text-emerald-600 transition-colors">Packages</button>
+<button onclick="nav('howitworks')" data-nav="howitworks" class="nav-btn hover:text-emerald-600 transition-colors">Quality Assurance</button>
+
+<!-- More Dropdown -->
+<div class="relative dropdown-group">
+<button class="flex items-center gap-1 hover:text-emerald-600 py-2">More <i class="fa-solid fa-chevron-down text-[9px]"></i></button>
+<div class="dropdown-menu">
+<button onclick="nav('howitworks')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">How it Works</button>
+<button onclick="nav('about')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">About Us</button>
+<button onclick="nav('emonitoring')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">E-Monitoring</button>
+<button onclick="nav('costcalc')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Cost Calculator</button>
+<button onclick="nav('careers')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Careers</button>
+<button onclick="nav('contact')" class="w-full text-left px-3 py-2 text-xs font-semibold hover:bg-orange-50 hover:text-emerald-600 rounded-lg">Contact Us</button>
+</div>
+</div>
+</nav>
+
+<!-- Right: Buttons & Profile -->
+<div class="flex items-center gap-3">
+<div id="hdr-loc" class="hidden flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-100/70 border border-orange-200 text-[11px] font-semibold text-stone-800">
+<i class="fa-solid fa-user text-emerald-600"></i><span id="hdr-name">—</span>
+</div>
+<div id="auth-buttons" class="flex items-center gap-2">
+<button onclick="openAuth('client')" class="px-3.5 py-1.5 rounded-full text-xs font-bold text-stone-700 hover:bg-stone-100 hidden sm:block">Login</button>
+<button onclick="openAuth('client')" class="btn-build">Let's Build</button>
+</div>
+<button id="btn-logout" onclick="logout()" class="hidden px-3 py-1.5 rounded-full text-xs font-bold border border-red-200 bg-red-50 text-red-600 hover:bg-red-100"><i class="fa-solid fa-right-from-bracket"></i></button>
+</div>
+</div>
+</header>
+
+<!-- DRAWER (MOBILE) -->
+<div id="drawer" class="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden">
+<div class="w-72 bg-[#FAF8F5] h-full p-5 flex flex-col justify-between shadow-2xl">
+<div class="space-y-4">
+<div class="flex items-center justify-between border-b border-stone-200 pb-3">
+<span class="text-lg font-black text-stone-900">Ghar<span class="text-emerald-600">Craft</span></span>
+<button onclick="toggleDrawer()" class="text-stone-400 hover:text-stone-900"><i class="fa-solid fa-xmark text-lg"></i></button>
+</div>
+<div class="space-y-1 text-sm font-semibold text-stone-700">
+<button onclick="nav('landing');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">Home</button>
+<button onclick="nav('projects');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">Projects</button>
+<button onclick="nav('packages');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">Packages & Cost Calculator</button>
+<button onclick="nav('howitworks');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">How it Works</button>
+<button onclick="nav('emonitoring');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">E-Monitoring</button>
+<button onclick="nav('about');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">About Us</button>
+<button onclick="nav('careers');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">Careers</button>
+<button onclick="nav('contact');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-orange-50">Contact Us</button>
+<hr class="border-stone-200">
+<button onclick="gated('client');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-100">Client Dashboard</button>
+<button onclick="gated('worker');toggleDrawer()" class="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-100">Contractor Portal</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- MAIN CONTAINER -->
+<main id="app" class="flex-grow max-w-7xl w-full mx-auto px-4 py-8">
+
+<!-- ============ LANDING PAGE ============ -->
+<div id="v-landing" class="vs space-y-14">
+<!-- Hero Section -->
+<div class="relative rounded-3xl overflow-hidden min-h-[460px] flex items-center p-8 md:p-12 text-white shadow-xl">
+<img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600" class="absolute inset-0 w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-r from-[#1C1612]/90 via-[#1C1612]/75 to-transparent"></div>
+<div class="relative z-10 max-w-xl space-y-5">
+<span class="inline-block px-3 py-1 rounded-full bg-orange-500/20 border border-orange-500/40 text-orange-300 text-[10px] font-bold tracking-wider uppercase">ONLY SERVING IN THANE • PALGHAR • MUMBAI • NAVI MUMBAI</span>
+<h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">15+ Years of Renovation Excellence. Built by Licensed Engineers.</h1>
+<p class="text-stone-300 text-xs sm:text-sm leading-relaxed">From modular kitchens to full home interior transformations, GharCraft brings Silicon-Valley technology to local craftsmanship. Zero delays, transparent material pricing, and 100% peace of mind.</p>
+<div class="flex flex-wrap gap-3 pt-2">
+<button onclick="nav('packages')" class="btn-build text-sm">Calculate House Cost</button>
+<button onclick="nav('projects')" class="px-5 py-2.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20">View Completed Work</button>
+</div>
+
+<!-- Key Capabilities / Trust Stats -->
+<div class="grid grid-cols-4 gap-4 pt-6 border-t border-white/15 text-center">
+<div><span class="block text-2xl font-black text-orange-400">250+</span><span class="text-stone-400 text-[10px] font-bold">Homes Built</span></div>
+<div><span class="block text-2xl font-black text-orange-400">500+</span><span class="text-stone-400 text-[10px] font-bold">Active Sites</span></div>
+<div><span class="block text-2xl font-black text-orange-400">15+ Yrs</span><span class="text-stone-400 text-[10px] font-bold">Experience</span></div>
+<div><span class="block text-2xl font-black text-orange-400">100%</span><span class="text-stone-400 text-[10px] font-bold">Licensed Engineers</span></div>
+</div>
+</div>
+</div>
+
+<!-- Work Photos Gallery Placeholder -->
+<div class="space-y-4">
+<div class="flex items-center justify-between"><h2 class="text-2xl font-extrabold text-stone-900">Recent Completed Projects</h2><button onclick="nav('projects')" class="text-xs font-bold text-emerald-600 hover:underline">View All Projects →</button></div>
+<p class="text-stone-500 text-xs">Serving homeowners across Thane, Palghar, Mumbai & Navi Mumbai.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+<div class="cc rounded-2xl overflow-hidden border border-stone-200 group cursor-pointer" onclick="nav('projects')">
+<div class="h-48 bg-stone-200 relative flex items-center justify-center text-stone-400"><i class="fa-solid fa-image text-3xl"></i><span class="absolute top-3 left-3 bg-stone-900/80 text-white text-[10px] font-bold px-2 py-1 rounded-full">Bandra West, Mumbai</span></div>
+<div class="p-4 space-y-1"><h3 class="font-bold text-sm">3BHK Full Interior Transformation</h3><p class="text-[11px] text-stone-500">Modular Teak Carpentry & False Ceiling</p></div>
+</div>
+<div class="cc rounded-2xl overflow-hidden border border-stone-200 group cursor-pointer" onclick="nav('projects')">
+<div class="h-48 bg-stone-200 relative flex items-center justify-center text-stone-400"><i class="fa-solid fa-image text-3xl"></i><span class="absolute top-3 left-3 bg-stone-900/80 text-white text-[10px] font-bold px-2 py-1 rounded-full">Vartak Nagar, Thane</span></div>
+<div class="p-4 space-y-1"><h3 class="font-bold text-sm">Luxury Villa Renovation</h3><p class="text-[11px] text-stone-500">Civil Masonry, Tiling & Polish</p></div>
+</div>
+<div class="cc rounded-2xl overflow-hidden border border-stone-200 group cursor-pointer" onclick="nav('projects')">
+<div class="h-48 bg-stone-200 relative flex items-center justify-center text-stone-400"><i class="fa-solid fa-image text-3xl"></i><span class="absolute top-3 left-3 bg-stone-900/80 text-white text-[10px] font-bold px-2 py-1 rounded-full">Palm Beach, Navi Mumbai</span></div>
+<div class="p-4 space-y-1"><h3 class="font-bold text-sm">Modern Minimalist Apartment</h3><p class="text-[11px] text-stone-500">Custom Kitchen & Smart Lighting</p></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ============ PROJECTS PAGE ============ -->
+<div id="v-projects" class="vs hidden space-y-8">
+<div><h1 class="text-3xl font-extrabold text-stone-900">Our Completed Projects</h1><p class="text-stone-500 text-xs mt-1">Explore real homes designed and built by GharCraft across Thane, Palghar, Mumbai, and Navi Mumbai.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="cc rounded-2xl overflow-hidden space-y-3 p-3">
+<div class="h-56 bg-stone-200 rounded-xl flex flex-col items-center justify-center text-stone-400 border border-dashed border-stone-300"><i class="fa-solid fa-camera text-3xl mb-2"></i><span class="text-xs font-semibold">Photo Slot — Project #1</span><span class="text-[10px] text-stone-400">Thane West</span></div>
+<div class="p-2 space-y-1"><h3 class="font-bold text-sm">Hiranandani Estate 4BHK</h3><p class="text-xs text-stone-500">Full Home Interior • Italian Marble & Custom Woodwork</p></div></div>
+<div class="cc rounded-2xl overflow-hidden space-y-3 p-3">
+<div class="h-56 bg-stone-200 rounded-xl flex flex-col items-center justify-center text-stone-400 border border-dashed border-stone-300"><i class="fa-solid fa-camera text-3xl mb-2"></i><span class="text-xs font-semibold">Photo Slot — Project #2</span><span class="text-[10px] text-stone-400">Palghar East</span></div>
+<div class="p-2 space-y-1"><h3 class="font-bold text-sm">Independent Bungalow</h3><p class="text-xs text-stone-500">Civil Renovation & Exterior Weatherproofing</p></div></div>
+<div class="cc rounded-2xl overflow-hidden space-y-3 p-3">
+<div class="h-56 bg-stone-200 rounded-xl flex flex-col items-center justify-center text-stone-400 border border-dashed border-stone-300"><i class="fa-solid fa-camera text-3xl mb-2"></i><span class="text-xs font-semibold">Photo Slot — Project #3</span><span class="text-[10px] text-stone-400">Vashi, Navi Mumbai</span></div>
+<div class="p-2 space-y-1"><h3 class="font-bold text-sm">Commercial Studio Space</h3><p class="text-xs text-stone-500">Acoustic Paneling & Custom Reception Desk</p></div></div>
+</div></div>
+
+<!-- ============ PACKAGES / COST ESTIMATOR PAGE ============ -->
+<div id="v-packages" class="vs hidden space-y-8">
+<div><h1 class="text-3xl font-extrabold text-stone-900">House Packages & Instant Cost Simulator</h1><p class="text-stone-500 text-xs mt-1">Get an instant estimation tailored to your exact location and area size.</p></div>
+<div id="sec-est" class="cc p-6 rounded-3xl space-y-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="lg:col-span-7 space-y-5">
+<div><label class="block text-[10px] font-bold uppercase text-stone-400 tracking-wider mb-2">Select Service</label><div class="grid grid-cols-2 gap-2" id="type-btns"></div></div>
+<div><label class="block text-[10px] font-bold uppercase text-stone-400 tracking-wider mb-2">Material Quality Tier</label><div class="grid grid-cols-3 gap-2" id="mat-btns"></div></div>
+<div><div class="flex justify-between items-center mb-1"><label class="text-[10px] font-bold uppercase text-stone-400">Area Size (Square Feet)</label><span id="sqft-lbl" class="text-xs font-black text-emerald-600 bg-orange-100/60 px-2.5 py-0.5 rounded-full">500 sq.ft</span></div><input type="range" id="sqft" min="100" max="2500" value="500" step="50" oninput="calc()" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-orange-600"></div>
+</div>
+<div class="lg:col-span-5 dc p-6 rounded-2xl flex flex-col justify-between space-y-5 shadow-xl">
+<div class="space-y-2"><span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Instant Estimate</span><div id="est-total" class="text-3xl font-extrabold text-orange-400">₹6,65,000 – ₹8,05,000</div><p id="est-detail" class="text-[10px] text-stone-400">Full Home Renovation • Essential • 500 sq.ft</p>
+<div class="flex justify-between text-xs text-stone-300 pt-2 border-t border-stone-800"><span>Labor & Craftsmanship</span><span id="est-lab" class="font-bold">₹2,25,000</span></div>
+<div class="flex justify-between text-xs text-stone-300"><span>Raw Materials</span><span id="est-mat" class="font-bold">₹4,75,000</span></div>
+</div>
+<button onclick="openAuth('client')" class="w-full py-3 rounded-xl font-bold text-xs bo text-center">Lock Quote & Book Free Site Visit</button>
+</div></div></div></div>
+
+<!-- ============ CAREERS PAGE ============ -->
+<div id="v-careers" class="vs hidden space-y-8">
+<div class="text-center max-w-2xl mx-auto space-y-2"><h1 class="text-3xl font-extrabold text-stone-900">Open Roles at GharCraft</h1><p class="text-stone-500 text-xs">Join India's fastest-growing renovation network across Thane, Palghar, Mumbai & Navi Mumbai.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Design</span><h3 class="font-bold text-base">Interior Designer</h3><p class="text-xs text-stone-500">3D CAD, modular kitchen layouts & client consultations.</p></div><button onclick="openCareerModal('Interior Designer')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Engineering</span><h3 class="font-bold text-base">Site Engineer</h3><p class="text-xs text-stone-500">On-site quality audit, daily worker logging & civil supervision.</p></div><button onclick="openCareerModal('Site Engineer')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Craftsmanship</span><h3 class="font-bold text-base">Master Carpenter</h3><p class="text-xs text-stone-500">Teak woodwork, shutter mounting & laminate pressing.</p></div><button onclick="openCareerModal('Master Carpenter')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Technical</span><h3 class="font-bold text-base">Electrician</h3><p class="text-xs text-stone-500">Concealed wiring, DB fitting & LED profile installation.</p></div><button onclick="openCareerModal('Electrician')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Technical</span><h3 class="font-bold text-base">Plumber</h3><p class="text-xs text-stone-500">CPVC piping, sanitary fitting & waterproofing audit.</p></div><button onclick="openCareerModal('Plumber')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Architecture</span><h3 class="font-bold text-base">Architect</h3><p class="text-xs text-stone-500">Structural layout, municipal approval & 3D space planning.</p></div><button onclick="openCareerModal('Architect')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Freelance</span><h3 class="font-bold text-base">Freelance Architect</h3><p class="text-xs text-stone-500">Project-based design consulting & site walkthroughs.</p></div><button onclick="openCareerModal('Freelance Architect')" class="btn-build w-full text-center">Apply Now →</button></div>
+<div class="cc p-5 rounded-2xl space-y-3 flex flex-col justify-between"><div class="space-y-1"><span class="text-[10px] font-bold text-emerald-600 uppercase">Freelance</span><h3 class="font-bold text-base">Freelance Civil Engineer</h3><p class="text-xs text-stone-500">Contractor audit, structural load inspection & estimation.</p></div><button onclick="openCareerModal('Freelance Civil Engineer')" class="btn-build w-full text-center">Apply Now →</button></div>
+</div></div>
+
+<!-- ============ E-MONITORING PAGE ============ -->
+<div id="v-emonitoring" class="vs hidden space-y-6">
+<div><h1 class="text-3xl font-extrabold text-stone-900">E-Monitoring & Live Site Cam</h1><p class="text-stone-500 text-xs">Total transparency for every homeowner — no more unannounced site visits needed.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="cc p-6 rounded-2xl space-y-3"><div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-emerald-600"><i class="fa-solid fa-camera"></i></div><h3 class="font-bold text-sm">3 Mandatory Daily Photos</h3><p class="text-xs text-stone-500">Supervisors upload morning, afternoon, and evening work progress photos every single day.</p></div>
+<div class="cc p-6 rounded-2xl space-y-3"><div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600"><i class="fa-solid fa-microphone"></i></div><h3 class="font-bold text-sm">Daily Voice Log</h3><p class="text-xs text-stone-500">1-sentence audio report explaining exact tasks completed and tomorrow's target.</p></div>
+<div class="cc p-6 rounded-2xl space-y-3"><div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center text-violet-600"><i class="fa-brands fa-whatsapp"></i></div><h3 class="font-bold text-sm">WhatsApp Alerts</h3><p class="text-xs text-stone-500">Direct notifications to your WhatsApp so you stay informed without downloading any heavy app.</p></div>
+</div></div>
+
+<!-- ============ ABOUT US PAGE ============ -->
+<div id="v-about" class="vs hidden space-y-6">
+<div><h1 class="text-3xl font-extrabold text-stone-900">About GharCraft</h1><p class="text-stone-500 text-xs">Combining 15+ years of traditional construction expertise with modern software infrastructure.</p></div>
+<div class="cc p-8 rounded-3xl space-y-4 text-xs text-stone-600 leading-relaxed"><p>GharCraft was founded to solve the core problem in Indian home renovation: lack of trust, cost overruns, and zero site visibility. With over 250+ completed homes and 500+ active sites across Thane, Palghar, Mumbai, and Navi Mumbai, we back every project with licensed civil engineers and fixed price-lock guarantees.</p></div></div>
+
+<!-- ============ HOW IT WORKS PAGE ============ -->
+<div id="v-howitworks" class="vs hidden space-y-6">
+<div><h1 class="text-3xl font-extrabold text-stone-900">Our 7-Step Quality Assurance Process</h1></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">01</span><h3 class="font-extrabold text-sm">Project Kickoff & Scope Alignment</h3></div>
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">02</span><h3 class="font-extrabold text-sm">3D AR Design & Material Sign-off</h3></div>
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">03</span><h3 class="font-extrabold text-sm">Escrow Phase 1 Funding</h3></div>
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">04</span><h3 class="font-extrabold text-sm">Daily E-Monitoring & Photo Logs</h3></div>
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">05</span><h3 class="font-extrabold text-sm">Milestone Quality Audit & Release</h3></div>
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">06</span><h3 class="font-extrabold text-sm">Pre-Handover Inspection</h3></div>
+<div class="cc p-5 rounded-2xl space-y-2"><span class="text-2xl font-black text-emerald-600">07</span><h3 class="font-extrabold text-sm">Final Handover & 1-Year Warranty</h3></div>
+</div></div>
+
+<!-- ============ COST CALCULATOR STANDALONE ============ -->
+<div id="v-costcalc" class="vs hidden space-y-6">
+<div class="flex items-center justify-between"><h1 class="text-3xl font-extrabold text-stone-900">Cost Calculator</h1></div>
+<div id="calc-clone"></div></div>
+
+<!-- ============ CONTACT US PAGE ============ -->
+<div id="v-contact" class="vs hidden space-y-6">
+<div><h1 class="text-3xl font-extrabold text-stone-900">Contact GharCraft Advisors</h1><p class="text-stone-500 text-xs">Reach out for free site visits in Thane, Palghar, Mumbai, and Navi Mumbai.</p></div>
+<div class="dc p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div class="space-y-3"><h3 class="text-xl font-bold text-white">Main Office</h3><p class="text-xs text-stone-300">Level 4, BuildSync Towers, Bandra-Kurla Complex (BKC), Mumbai - 400051</p><p class="text-xs text-stone-300"><strong>Support:</strong> +91 1800 200 9090</p><p class="text-xs text-stone-300"><strong>Email:</strong> support@gharcraft.in</p></div>
+<form onsubmit="event.preventDefault();wa('Message sent! An engineer will call you shortly.')" class="cc p-5 rounded-2xl space-y-3">
+<input placeholder="Your Name" required class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<input placeholder="Phone Number" required class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<select class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs"><option>Thane</option><option>Palghar</option><option>Mumbai</option><option>Navi Mumbai</option></select>
+<button type="submit" class="btn-build w-full text-center">Request Callback</button></form></div></div>
+
+<!-- CLIENT / WORKER DASHBOARDS -->
+<div id="v-client" class="vs hidden space-y-6">
+<div class="cc p-5 rounded-2xl flex justify-between items-center"><div><h2 class="text-xl font-bold">Client Dashboard</h2><p class="text-xs text-stone-500" id="cd-name">—</p></div><button onclick="logout()" class="text-xs text-red-600 font-bold">Logout</button></div></div>
+<div id="v-worker" class="vs hidden space-y-6">
+<div class="cc p-5 rounded-2xl flex justify-between items-center"><div><h2 class="text-xl font-bold">Contractor Portal</h2><p class="text-xs text-stone-500" id="wd-name">—</p></div><button onclick="logout()" class="text-xs text-red-600 font-bold">Logout</button></div></div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#1C1612] text-stone-300 mt-12">
+<div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-xs">
+<div class="space-y-3"><h4 class="font-extrabold text-white text-sm">Service Cities</h4><p>Thane</p><p>Palghar</p><p>Mumbai</p><p>Navi Mumbai</p></div>
+<div class="space-y-3"><h4 class="font-extrabold text-white text-sm">Quick Links</h4><a href="#" onclick="nav('projects')" class="block hover:text-orange-400">Completed Projects</a><a href="#" onclick="nav('packages')" class="block hover:text-orange-400">Packages</a><a href="#" onclick="nav('careers')" class="block hover:text-orange-400">Careers</a><a href="#" onclick="nav('emonitoring')" class="block hover:text-orange-400">E-Monitoring</a></div>
+<div class="space-y-3"><h4 class="font-extrabold text-white text-sm">Legal & Quality</h4><p>15+ Years Track Record</p><p>Licensed Civil Engineers</p><p>100% Price Lock Guarantee</p></div>
+<div class="space-y-3"><h4 class="font-extrabold text-white text-sm">Connect</h4><p>+91 1800 200 9090</p><p>support@gharcraft.in</p></div>
+</div>
+<div class="border-t border-stone-800 text-center py-4 text-[10px] text-stone-500">© 2026 GharCraft by BuildSync. All rights reserved.</div>
+</footer>
+
+<!-- CAREER 3-STEP APPLICATION MODAL -->
+<div id="career-modal" class="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+<div class="bg-white border border-stone-200 rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl relative">
+<button onclick="closeCareerModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900"><i class="fa-solid fa-xmark text-lg"></i></button>
+
+<div class="space-y-1">
+<h3 class="text-lg font-extrabold text-stone-900">Apply for <span id="car-role-name" class="text-emerald-600">Architect</span></h3>
+<p class="text-[11px] text-stone-500">Share your details and we'll get back within 2-3 working days</p>
+<div class="text-xs font-bold text-emerald-600 pt-1" id="car-step-lbl">Step 1 of 3 — Your details</div>
+</div>
+
+<!-- Step 1 Form -->
+<form id="car-step-1" onsubmit="event.preventDefault(); nextCareerStep(2)" class="space-y-3">
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Full Name</label><input required placeholder="E.g. Rohan Sharma" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500"></div>
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Email</label><input type="email" required placeholder="you@example.com" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500"></div>
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">When are you planning to join?</label>
+<select required class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs"><option>Immediate (Within 7 Days)</option><option>Within 15 Days</option><option>Within 30 Days</option></select></div>
+<button type="submit" class="btn-build w-full text-center mt-2">Continue</button>
+</form>
+
+<!-- Step 2 Form -->
+<form id="car-step-2" onsubmit="event.preventDefault(); nextCareerStep(3)" class="hidden space-y-3">
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Phone Number</label><div class="flex gap-1"><input id="car-ph" required placeholder="+91 98765 43210" class="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs"><button type="button" onclick="wa('OTP 123456 sent to phone!')" class="px-3 py-2 bg-stone-800 text-white rounded-xl text-[10px] font-bold">Send OTP</button></div></div>
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">OTP Verification</label><input required placeholder="Enter 123456" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs"></div>
+<button type="submit" class="btn-build w-full text-center mt-2">Verify & Proceed</button>
+</form>
+
+<!-- Step 3 Form -->
+<form id="car-step-3" onsubmit="event.preventDefault(); submitCareerApp()" class="hidden space-y-3">
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">Past Work Photos / Portfolio (Optional)</label><input type="file" multiple class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-1.5 text-xs"></div>
+<div><label class="block text-[10px] font-bold text-stone-600 uppercase mb-1">License / Degree Document</label><input type="file" class="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-1.5 text-xs"></div>
+<button type="submit" class="btn-build w-full text-center mt-2">Submit Application</button>
+</form>
+</div>
+</div>
+
+<!-- CLIENT/CONTRACTOR AUTH MODAL -->
+<div id="auth-modal" class="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+<div class="bg-[#FAF8F5] border border-stone-200 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+<button onclick="closeAuth()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-900"><i class="fa-solid fa-xmark text-lg"></i></button>
+<h3 class="text-xl font-extrabold text-stone-900 text-center">Welcome to GharCraft</h3>
+<div class="flex justify-center gap-2"><button onclick="setRole('client')" id="r-client" class="px-4 py-1.5 rounded-full text-xs font-bold border border-orange-500 bg-orange-500 text-white">Client</button><button onclick="setRole('contractor')" id="r-ctr" class="px-4 py-1.5 rounded-full text-xs font-bold border border-stone-300 bg-stone-100 text-stone-700">Contractor</button></div>
+<form id="f-client" onsubmit="submitClient(event)" class="space-y-3">
+<input id="c-name" required placeholder="Full Name" class="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<input id="c-id" required placeholder="Email or Phone" class="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<input id="c-loc" required placeholder="Location & Pincode (e.g. Thane - 400601)" class="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<button type="submit" class="btn-build w-full text-center">Login / Sign Up</button>
+</form>
+<form id="f-ctr" onsubmit="submitCtr(event)" class="hidden space-y-3">
+<input id="ct-name" required placeholder="Owner Name" class="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<input id="ct-ph" required placeholder="Phone Number" class="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<input id="ct-lic" required placeholder="License Number" class="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs">
+<button type="submit" class="btn-build w-full text-center">Submit KYC</button>
+</form>
+</div>
+</div>
+
+<!-- WhatsApp Toast -->
+<div id="wa-toast" class="fixed bottom-4 right-4 z-50 translate-y-32 opacity-0 transition-all duration-300 pointer-events-none max-w-sm w-full">
+<div class="bg-stone-900 text-white rounded-2xl p-3 flex items-center gap-3 border border-stone-800">
+<div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-stone-950 font-black"><i class="fa-brands fa-whatsapp"></i></div>
+<div class="flex-grow"><p id="wa-msg" class="text-xs text-stone-200">—</p></div></div></div>
+
+<script>
+let S={view:'landing',user:null,loc:'Thane',pType:'Full Home Renovation',mGrade:'Essential'};
+try{const saved=localStorage.getItem('gc_session');if(saved){let p=JSON.parse(saved);if(p&&p.user){S.user=p.user;S.loc=p.user.loc||'Thane';}}}catch(e){}
+
+function changeLoc(l){S.loc=l;document.getElementById('sel-loc-name').innerText=l;wa('Serving location set to: '+l);}
+function nav(v){
+S.view=v;
+document.querySelectorAll('.vs').forEach(e=>e.classList.add('hidden'));
+let t=document.getElementById('v-'+v);
+if(t)t.classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+btn.classList.toggle('text-emerald-600', btn.getAttribute('data-nav')===v);
+});
+if(v==='costcalc'){let c=document.getElementById('sec-est');if(c)document.getElementById('calc-clone').appendChild(c);}
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleDrawer(){document.getElementById('drawer').classList.toggle('hidden')}
+function openAuth(r='client'){document.getElementById('auth-modal').classList.remove('hidden');setRole(r)}
+function closeAuth(){document.getElementById('auth-modal').classList.add('hidden')}
+function setRole(r){document.getElementById('r-client').className='px-4 py-1.5 rounded-full text-xs font-bold border '+(r==='client'?'border-orange-500 bg-orange-500 text-white':'border-stone-300 bg-stone-100 text-stone-700');document.getElementById('r-ctr').className='px-4 py-1.5 rounded-full text-xs font-bold border '+(r==='contractor'?'border-orange-500 bg-orange-500 text-white':'border-stone-300 bg-stone-100 text-stone-700');document.getElementById('f-client').classList.toggle('hidden',r!=='client');document.getElementById('f-ctr').classList.toggle('hidden',r!=='contractor')}
+
+function submitClient(e){e.preventDefault();S.user={role:'client',name:document.getElementById('c-name').value,loc:document.getElementById('c-loc').value};localStorage.setItem('gc_session',JSON.stringify({user:S.user}));updateUI();closeAuth();nav('client');wa('Welcome '+S.user.name+'!');}
+function submitCtr(e){e.preventDefault();S.user={role:'contractor',name:document.getElementById('ct-name').value};localStorage.setItem('gc_session',JSON.stringify({user:S.user}));updateUI();closeAuth();nav('worker');wa('KYC Submitted!');}
+
+function updateUI(){if(!S.user)return;document.getElementById('hdr-loc').classList.remove('hidden');document.getElementById('hdr-name').innerText=S.user.name;document.getElementById('auth-buttons').classList.add('hidden');document.getElementById('btn-logout').classList.remove('hidden');}
+function logout(){S.user=null;localStorage.removeItem('gc_session');document.getElementById('hdr-loc').classList.add('hidden');document.getElementById('auth-buttons').classList.remove('hidden');document.getElementById('btn-logout').classList.add('hidden');nav('landing');wa('Logged out');}
+
+// Career Modal 3-Step Logic
+function openCareerModal(role){document.getElementById('car-role-name').innerText=role;document.getElementById('career-modal').classList.remove('hidden');nextCareerStep(1);}
+function closeCareerModal(){document.getElementById('career-modal').classList.add('hidden');}
+function nextCareerStep(step){
+document.getElementById('car-step-1').classList.toggle('hidden',step!==1);
+document.getElementById('car-step-2').classList.toggle('hidden',step!==2);
+document.getElementById('car-step-3').classList.toggle('hidden',step!==3);
+document.getElementById('car-step-lbl').innerText='Step '+step+' of 3 — '+(step===1?'Your details':step===2?'OTP Verification':'Past Work & Documents');
+}
+function submitCareerApp(){closeCareerModal();wa('Application submitted successfully! Our team will contact you.');}
+
+const TYPES=[['Full Home Renovation','Full Home Interiors'],['Custom Wardrobe','Carpentry & Furniture'],['Structural Masonry','Masonry & Civil Work'],['Painting','Painting & Polish']];
+const MATS=[['Essential','Essential'],['Premium','Premium'],['Luxe','Luxe']];
+function renderTypeBtns(){let c=document.getElementById('type-btns');if(!c)return;c.innerHTML=TYPES.map(([k,l])=>`<button onclick="selType('${k}')" class="p-3 rounded-xl border text-xs font-bold text-left ${S.pType===k?'border-emerald-500 bg-emerald-50 text-stone-900':'border-stone-200 bg-stone-50 text-stone-600'}">${l}</button>`).join('')}
+function renderMatBtns(){let c=document.getElementById('mat-btns');if(!c)return;c.innerHTML=MATS.map(([k,l])=>`<button onclick="selMat('${k}')" class="p-2.5 rounded-xl border text-xs font-bold text-center ${S.mGrade===k?'border-emerald-500 bg-emerald-50 text-stone-900':'border-stone-200 bg-stone-50 text-stone-600'}">${l}</button>`).join('')}
+function selType(t){S.pType=t;renderTypeBtns();calc()}
+function selMat(m){S.mGrade=m;renderMatBtns();calc()}
+function calc(){let sq=parseInt(document.getElementById('sqft').value);document.getElementById('sqft-lbl').innerText=sq+' sq.ft';let r={labor:450,material:950};if(S.pType==='Custom Wardrobe')r={labor:350,material:650};if(S.pType==='Structural Masonry')r={labor:250,material:450};if(S.pType==='Painting')r={labor:120,material:180};let lab=sq*r.labor,mat=sq*r.material;if(S.mGrade==='Luxe'){mat*=1.35;lab*=1.1}if(S.mGrade==='Premium'){mat*=1.15;lab*=1.05}let mn=(lab+mat)*.95,mx=(lab+mat)*1.15;document.getElementById('est-total').innerText='₹'+Math.round(mn).toLocaleString('en-IN')+' – ₹'+Math.round(mx).toLocaleString('en-IN');document.getElementById('est-lab').innerText='₹'+Math.round(lab).toLocaleString('en-IN');document.getElementById('est-mat').innerText='₹'+Math.round(mat).toLocaleString('en-IN');document.getElementById('est-detail').innerText=S.pType+' • '+S.mGrade+' • '+sq+' sq.ft'}
+function wa(m){let t=document.getElementById('wa-toast');document.getElementById('wa-msg').innerText=m;t.classList.remove('translate-y-32','opacity-0','pointer-events-none');setTimeout(()=>t.classList.add('translate-y-32','opacity-0','pointer-events-none'),4000)}
+
+window.addEventListener('DOMContentLoaded',()=>{renderTypeBtns();renderMatBtns();calc();if(S.user)updateUI();});
+</script>
+</body></html>
